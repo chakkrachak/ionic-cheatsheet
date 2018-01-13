@@ -1,5 +1,13 @@
 # ionic-cheatsheet
 
+## npm
+### When you need to sudo while you should NOT
+```
+sudo chown -R $(whoami) /usr/local/lib/node_modules
+sudo chown -R $(whoami) /usr/local/bin
+sudo chown -R $(whoami) /usr/local/share
+```
+
 ## Android
 ### When your emulator has dns problems
 ```
