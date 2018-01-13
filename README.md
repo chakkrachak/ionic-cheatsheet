@@ -8,6 +8,12 @@ sudo chown -R $(whoami) /usr/local/bin
 sudo chown -R $(whoami) /usr/local/share
 ```
 
+## Typescript
+### Articles
+- [Module resolution](https://www.typescriptlang.org/docs/handbook/module-resolution.html)
+- [Pitfalls for namespaces and modules](https://www.typescriptlang.org/docs/handbook/namespaces-and-modules.html)
+
+
 ## Android
 ### When your emulator has dns problems
 ```
