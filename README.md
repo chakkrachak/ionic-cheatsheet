@@ -252,5 +252,3 @@ export class HomePage {
 }
 ```
 
-
-    providers: [
