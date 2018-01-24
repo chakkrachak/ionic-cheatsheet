@@ -122,7 +122,7 @@ export class HomePage {
     map: GoogleMap;
 
     constructor(private googleMaps: GoogleMaps, public platform: Platform) {
-        platform.ready().then(() => {
+        this.platform.ready().then(() => {
             this.loadMap();
         })
     }
@@ -233,7 +233,7 @@ import {Geolocation} from '@ionic-native/geolocation';
 export class HomePage {
 
     constructor(public navCtrl: NavController, private geolocation: Geolocation, private platform: Platform) {
-        platform.ready().then(() => {
+        this.platform.ready().then(() => {
             this.getLocation();
         })
     }
