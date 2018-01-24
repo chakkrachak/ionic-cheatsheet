@@ -36,7 +36,7 @@ adb start-server
 - [Repo GitHub](https://github.com/mapsplugin/cordova-plugin-googlemaps)
 
 ### app.module.ts
-```
+```typescript
 import {BrowserModule} from '@angular/platform-browser';
 import {ErrorHandler, NgModule} from '@angular/core';
 import {IonicApp, IonicErrorHandler, IonicModule} from 'ionic-angular';
@@ -73,7 +73,7 @@ export class AppModule {
 ```
 
 ### home.html
-```
+```html
 <ion-header>
   <ion-navbar>
     <ion-title>
@@ -90,7 +90,7 @@ export class AppModule {
 ```
 
 ### home.scss
-```
+```scss
 page-home {
     #map_canvas {
         height: 90%;
@@ -99,7 +99,7 @@ page-home {
 ```
 
 ### home.ts
-```
+```typescript
 import { Component } from "@angular/core/";
 import {
     GoogleMaps,
@@ -184,7 +184,7 @@ export class HomePage {
 - [Ionic reference](https://ionicframework.com/docs/native/geolocation/)
 
 ### app.module.ts
-```
+```typescript
 import {BrowserModule} from '@angular/platform-browser';
 import {ErrorHandler, NgModule} from '@angular/core';
 import {IonicApp, IonicErrorHandler, IonicModule} from 'ionic-angular';
@@ -221,7 +221,7 @@ export class AppModule {
 ```
 
 ### home.ts
-```
+```typescript
 import {Component} from '@angular/core';
 import {NavController, Platform} from 'ionic-angular';
 import {Geolocation} from '@ionic-native/geolocation';
