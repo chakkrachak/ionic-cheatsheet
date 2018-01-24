@@ -251,4 +251,11 @@ export class HomePage {
     }
 }
 ```
-
+### config.xml (if you are using iOS > 11)
+Add this 
+```xml
+<edit-config target="NSLocationWhenInUseUsageDescription" file="*-Info.plist" mode="merge">
+    <string>your custom text here</string>
+</edit-config>
+```
+    
