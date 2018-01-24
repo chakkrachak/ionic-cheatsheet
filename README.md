@@ -178,3 +178,79 @@ export class HomePage {
     }
 }
 ```
+
+## Using geolocation
+### The good plugin
+- [Ionic reference](https://ionicframework.com/docs/native/geolocation/)
+
+### app.module.ts
+```
+import {BrowserModule} from '@angular/platform-browser';
+import {ErrorHandler, NgModule} from '@angular/core';
+import {IonicApp, IonicErrorHandler, IonicModule} from 'ionic-angular';
+import {SplashScreen} from '@ionic-native/splash-screen';
+import {StatusBar} from '@ionic-native/status-bar';
+import {Geolocation} from '@ionic-native/geolocation';
+
+import {MyApp} from './app.component';
+import {HomePage} from '../pages/home/home';
+
+@NgModule({
+    declarations: [
+        MyApp,
+        HomePage
+    ],
+    imports: [
+        BrowserModule,
+        IonicModule.forRoot(MyApp)
+    ],
+    bootstrap: [IonicApp],
+    entryComponents: [
+        MyApp,
+        HomePage
+    ],
+    providers: [
+        StatusBar,
+        SplashScreen,
+        Geolocation,
+        {provide: ErrorHandler, useClass: IonicErrorHandler}
+    ]
+})
+export class AppModule {
+}
+```
+
+### home.ts
+```
+import {Component} from '@angular/core';
+import {NavController, Platform} from 'ionic-angular';
+import {Geolocation} from '@ionic-native/geolocation';
+
+@Component({
+    selector: 'page-home',
+    templateUrl: 'home.html'
+})
+export class HomePage {
+
+    constructor(public navCtrl: NavController, private geolocation: Geolocation, private platform: Platform) {
+        platform.ready().then(() => {
+            this.getLocation();
+        })
+    }
+
+    getLocation() {
+        this.geolocation.getCurrentPosition({
+            timeout: 300000,
+            enableHighAccuracy: true,
+            maximumAge: 3600
+        }).then((resp) => {
+            alert(resp.coords.latitude + ' ' + resp.coords.longitude);
+        }).catch((error) => {
+            alert('Error getting location : ' + JSON.stringify(error));
+        });
+    }
+}
+```
+
+
+    providers: [
