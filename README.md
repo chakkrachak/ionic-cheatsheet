@@ -259,3 +259,103 @@ Add this
 </edit-config>
 ```
     
+## Reading a local json file (some quick and dirty way)
+### An example file
+- [Opendata](https://opendata.paris.fr/explore/dataset/liste-des-cafes-a-un-euro/export/) 
+
+### app.module.ts
+```typescript
+import {BrowserModule} from '@angular/platform-browser';
+import {ErrorHandler, NgModule} from '@angular/core';
+import {IonicApp, IonicErrorHandler, IonicModule} from 'ionic-angular';
+import {SplashScreen} from '@ionic-native/splash-screen';
+import {StatusBar} from '@ionic-native/status-bar';
+
+import {MyApp} from './app.component';
+import {HomePage} from '../pages/home/home';
+import {HttpModule} from "@angular/http";
+
+@NgModule({
+    declarations: [
+        MyApp,
+        HomePage
+    ],
+    imports: [
+        BrowserModule,
+        IonicModule.forRoot(MyApp),
+        HttpModule
+    ],
+    bootstrap: [IonicApp],
+    entryComponents: [
+        MyApp,
+        HomePage
+    ],
+    providers: [
+        StatusBar,
+        SplashScreen,
+        {provide: ErrorHandler, useClass: IonicErrorHandler}
+    ]
+})
+export class AppModule {
+}
+    
+```typescript
+import {Component, NgZone} from '@angular/core';
+import {NavController, Platform} from 'ionic-angular';
+import {Http} from "@angular/http";
+import "rxjs/add/operator/map";
+
+@Component({
+    selector: 'page-home',
+    templateUrl: 'home.html'
+})
+export class HomePage {
+    pois: Array<Poi> = [];
+
+    constructor(public navCtrl: NavController, private platform: Platform, private zone: NgZone, private http: Http) {
+        platform.ready().then(() => {
+            this.http.get('../../assets/data/pois.json')
+                .map(res => res.json())
+                .subscribe((jsonPois) => {
+                    jsonPois.map(rawPoi => {
+                        let poi: Poi = new Poi();
+
+                        poi.name = rawPoi.fields.nom_du_cafe;
+                        poi.displayInformation = {
+                            addressLabel: rawPoi.fields.address + ' ' + rawPoi.fields.arrondissement + ' Paris'
+                        };
+
+                        if (rawPoi.geometry !== undefined) {
+                            poi.coords = {
+                                lat: rawPoi.geometry.coordinates[0],
+                                lon: rawPoi.geometry.coordinates[1]
+                            };
+                        }
+
+                        return poi;
+                    }).filter((poi: Poi) => {
+                        return ((poi.coords !== undefined) && (poi.displayInformation !== undefined) && (poi.displayInformation.addressLabel !== undefined));
+                    }).map((poi: Poi) => {
+                        this.zone.run(() => {
+                            this.pois.push(poi);
+                        });
+                    })
+                });
+        })
+    }
+}
+
+class Poi {
+    name: string;
+    coords: {
+        lat: number,
+        lon: number
+    };
+    displayInformation: {
+        addressLabel: string
+    }
+}
+    
+    
+``` 
+
