@@ -319,23 +319,8 @@ export class HomePage {
             this.http.get('../../assets/data/pois.json')
                 .map(res => res.json())
                 .subscribe((jsonPois) => {
-                    jsonPois.map(rawPoi => {
-                        let poi: Poi = new Poi();
-
-                        poi.name = rawPoi.fields.nom_du_cafe;
-                        poi.displayInformation = {
-                            addressLabel: rawPoi.fields.address + ' ' + rawPoi.fields.arrondissement + ' Paris'
-                        };
-
-                        if (rawPoi.geometry !== undefined) {
-                            poi.coords = {
-                                lat: rawPoi.geometry.coordinates[0],
-                                lon: rawPoi.geometry.coordinates[1]
-                            };
-                        }
-
-                        return poi;
-                    }).filter((poi: Poi) => {
+                    jsonPois.map(rawPoi => new Poi(rawPoi))
+                    .filter((poi: Poi) => {
                         return ((poi.coords !== undefined) && (poi.displayInformation !== undefined) && (poi.displayInformation.addressLabel !== undefined));
                     }).map((poi: Poi) => {
                         this.zone.run(() => {
@@ -355,7 +340,21 @@ class Poi {
     };
     displayInformation: {
         addressLabel: string
-    }
-}   
-``` 
+    };
 
+    constructor(rawPoi: any) {
+        this.name = rawPoi.fields.nom_du_cafe;
+        this.displayInformation = {
+            addressLabel: rawPoi.fields.address + ' ' + rawPoi.fields.arrondissement + ' Paris'
+        };
+
+        if (rawPoi.geometry !== undefined) {
+            this.coords = {
+                lat: rawPoi.geometry.coordinates[0],
+                lon: rawPoi.geometry.coordinates[1]
+            };
+        }
+    }
+}
+
+``` 
