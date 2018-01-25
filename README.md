@@ -298,7 +298,9 @@ import {HttpModule} from "@angular/http";
 })
 export class AppModule {
 }
-    
+```
+
+### home.ts
 ```typescript
 import {Component, NgZone} from '@angular/core';
 import {NavController, Platform} from 'ionic-angular';
@@ -354,8 +356,6 @@ class Poi {
     displayInformation: {
         addressLabel: string
     }
-}
-    
-    
+}   
 ``` 
 
