@@ -32,8 +32,8 @@ adb start-server
 
 ## Display a map
 ### The good plugin
-- [Ionic reference](https://ionicframework.com/docs/native/google-maps/)
-- [Repo GitHub](https://github.com/mapsplugin/cordova-plugin-googlemaps)
+- [Google maps plugin Ionic reference](https://ionicframework.com/docs/native/google-maps/)
+- [Google maps plugin Repo GitHub](https://github.com/mapsplugin/cordova-plugin-googlemaps)
 
 ### app.module.ts
 ```typescript
@@ -181,7 +181,7 @@ export class HomePage {
 
 ## Using geolocation
 ### The good plugin
-- [Ionic reference](https://ionicframework.com/docs/native/geolocation/)
+- [Geolocation plugin Ionic reference](https://ionicframework.com/docs/native/geolocation/)
 
 ### app.module.ts
 ```typescript
@@ -358,3 +358,8 @@ class Poi {
 }
 
 ``` 
+
+## Request an API
+### The good plugin
+- [HTTP plugin Ionic reference](https://ionicframework.com/docs/native/http/)
+
